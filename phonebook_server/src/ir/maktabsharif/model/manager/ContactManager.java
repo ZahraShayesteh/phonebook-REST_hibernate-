@@ -21,8 +21,7 @@ public class ContactManager {
 			if (e.getName() != null)//checking to enter the name for contact
 				if (e.getHomeNumber().matches("[0-9]+") | e.getHomeNumber() == null)//checking to insert just digits for home number
 					if (e.getMobile().matches("^09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}$") | e.getMobile() == null)//checking the mobile format
-						if (e.getEmail().toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
-								| e.getEmail() == null)//checking the email format
+						if (e.getEmail().toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$") | e.getEmail() == null)//checking the email format
 							return ContactDAO.getInstance().add(e);
 						else
 							throw new Exception("email pattern doesn't match!");
@@ -59,16 +58,18 @@ public class ContactManager {
 			return ContactDAO.getInstance().delete(e);
 		else
 			throw new Exception("contact is null!");
-
 	}
 
 	public boolean delete(int id) {
 		return ContactDAO.getInstance().delete(ContactDAO.getInstance().getById(id));
-
 	}
 
 	public List<Contact> list() {//get all
 		return ContactDAO.getInstance().getAll();
 	}
 
+	public Contact get(int id){
+		return ContactDAO.getInstance().getById(id);
+	}
+	
 }

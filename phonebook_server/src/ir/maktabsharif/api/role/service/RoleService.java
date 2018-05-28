@@ -27,20 +27,20 @@ public class RoleService {
 	public Response add(RoleFullDTO e) {
 		try{
 			if (RoleManager.getInstance().add(e.convertToObject())) {
-				return Response.status(Status.NO_CONTENT).build();
+				return Response.status(Status.OK).entity("Role added successfully!").build();
 			} else {
-				return Response.status(Status.NOT_ACCEPTABLE).build();
+				return Response.status(Status.NOT_ACCEPTABLE).entity("Not acceptable content!").build();
 			}
 		}catch(Exception x)
 		{
-			return Response.status(Status.NOT_ACCEPTABLE).build();
+			return Response.status(Status.NOT_ACCEPTABLE).entity(x.getMessage()).build();
 		}
 	}
 
 	@DELETE
 	@Path("/{roleName}")
 	public Response remove(@PathParam("roleName") String roleName) {//not defined in context of problem(question) so it will return method not allowed
-		return Response.status(Status.METHOD_NOT_ALLOWED).build();
+		return Response.status(Status.METHOD_NOT_ALLOWED).entity("Delete not allowed for role!").build();
 	}
 
 	@PUT
@@ -48,13 +48,13 @@ public class RoleService {
 	public Response update(RoleFullDTO e) {//not defined in context of problem(question) so it will return method not allowed
 		try{
 			if (RoleManager.getInstance().update(e.convertToObject())) {
-				return Response.status(Status.NO_CONTENT).build();
+				return Response.status(Status.OK).entity("Role updated successfully!").build();
 			} else {
-				return Response.status(Status.METHOD_NOT_ALLOWED).build();
+				return Response.status(Status.METHOD_NOT_ALLOWED).entity("Action not allowed!").build();
 			}
 		}catch(Exception x)
 		{
-			return Response.status(Status.METHOD_NOT_ALLOWED).build();
+			return Response.status(Status.NOT_ACCEPTABLE).entity(x.getMessage()).build();
 		}
 	}
 
@@ -81,7 +81,7 @@ public class RoleService {
 		if (rdto.getName() != null && rdto.getFeatures()!=null) {
 			return Response.ok(rdto).build();
 		} else {
-			return Response.status(Status.NOT_FOUND).build();
+			return Response.status(Status.NOT_FOUND).entity("Role not found!").build();
 		}
 	}
 }

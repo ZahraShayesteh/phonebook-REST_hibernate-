@@ -29,12 +29,12 @@ public class ContactService{
 		Contact c=e.convertToObject();
 		try{
 			if(ContactManager.getInstance().add(c)){//if inserting was successful and if condition was true
-				return Response.status(Status.NO_CONTENT).build();//204:The server has fulfilled the request but does not need to return an entity-body, and might want to return updated metainformation.
+				return Response.status(Status.OK).entity("Contact added successfully").build();//204:The server has fulfilled the request but does not need to return an entity-body, and might want to return updated metainformation.
 			}
-			return Response.status(Status.NOT_ACCEPTABLE).build();//if inserting was not successful and if condition was false
+			return Response.status(Status.NOT_ACCEPTABLE).entity("Input values are not acceptable!").build();//if inserting was not successful and if condition was false
 		}
-		catch(Exception x){
-			return Response.status(Status.NOT_ACCEPTABLE).build();//406:The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request.
+		catch(Exception x){ 
+				return Response.status(Status.NOT_ACCEPTABLE).entity(x.getMessage()).build();//406:The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request.
 		}
 	}
 
@@ -45,12 +45,12 @@ public class ContactService{
 		Contact c=e.convertToObject();
 		try{
 			if(ContactManager.getInstance().delete(c)){//if deleting was successful and if condition was true
-				return Response.status(Status.NO_CONTENT).build();
+				return Response.status(Status.OK).entity("Contact deleted successfully").build();
 			}
-			return Response.status(Status.NOT_ACCEPTABLE).build();//if deleting was not successful and if condition was false
+			return Response.status(Status.NOT_ACCEPTABLE).entity("Contact not found!").build();//if deleting was not successful and if condition was false
 		}
 		catch(Exception x){
-			return Response.status(Status.NOT_ACCEPTABLE).build();//if condition in if condition throw an exception
+			return Response.status(Status.NOT_ACCEPTABLE).entity(x.getMessage()).build();//if condition in if condition throw an exception
 		}
 	}
 
@@ -60,12 +60,12 @@ public class ContactService{
 	public Response remove(@PathParam("id") Integer id) {
 		try{
 			if(ContactManager.getInstance().delete(ContactDAO.getInstance().getById(id))){//if deleting was successful and if condition was true
-				return Response.status(Status.NO_CONTENT).build();
+				return Response.status(Status.OK).entity("Contact deleted successfully!").build();
 			}
-			return Response.status(Status.NOT_ACCEPTABLE).build();//if deleting was not successful and if condition was false
+			return Response.status(Status.NOT_ACCEPTABLE).entity("Contact not found!").build();//if deleting was not successful and if condition was false
 		}
 		catch(Exception x){
-			return Response.status(Status.NOT_ACCEPTABLE).build();//if condition in if condition throw an exception
+			return Response.status(Status.NOT_ACCEPTABLE).entity(x.getMessage()).build();//if condition in if condition throw an exception
 		}
 	}
 
@@ -76,12 +76,12 @@ public class ContactService{
 		Contact c=e.convertToObject();
 		try{
 			if(ContactManager.getInstance().update(c)){//if updating was successful and if condition was true
-				return Response.status(Status.NO_CONTENT).build();
+				return Response.status(Status.OK).entity("Contact updated successfully!").build();
 			}
-			return Response.status(Status.NOT_ACCEPTABLE).build();//if updating was not successful and if condition was false
+			return Response.status(Status.NOT_ACCEPTABLE).entity("Contact not found!").build();//if updating was not successful and if condition was false
 		}
 		catch(Exception x){
-			return Response.status(Status.NOT_ACCEPTABLE).build();//if condition in if condition throw an exception
+				return Response.status(Status.NOT_ACCEPTABLE).entity(x.getMessage()).build();
 		}
 	}
 
@@ -113,6 +113,17 @@ public class ContactService{
 			dtos.add(cfdto.convertToDto(c.get(i)));
 		}
 		return dtos;
+	}
+
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ContactFullDTO get(@PathParam("id") Integer id) {
+		Contact c= new Contact();
+		c=ContactManager.getInstance().get(id);
+		ContactFullDTO dto=new ContactFullDTO();
+		dto.convertToDto(c);
+		return dto;
 	}
 
 }
