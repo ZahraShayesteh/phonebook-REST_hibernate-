@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Contact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ID;
+	private int id;
 	@Column
 	private String name;
 	@Column
@@ -22,12 +22,12 @@ public class Contact {
 	@Column
 	private String email;
 
-	public int getID() {
-		return ID;
+	public int getId() {
+		return id;
 	}
 
-	public void setID(int iD) {
-		ID = iD;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -71,7 +71,7 @@ public class Contact {
 	}
 
 	public Contact(int iD, String name, String surname, String homeNumber, String mobile, String email) {
-		ID = iD;
+		id = iD;
 		this.name = name;
 		this.surname = surname;
 		this.homeNumber = homeNumber;

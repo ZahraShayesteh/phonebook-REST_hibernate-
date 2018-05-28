@@ -21,6 +21,7 @@ public class ContactDAO {
 	public static ContactDAO getInstance() {
 		return contactDAOInstance;
 	}
+	
 	private static final SessionFactory mySessionFactory;
 
 	static {
@@ -30,9 +31,11 @@ public class ContactDAO {
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
+	
 	public static Session getSession() throws HibernateException {
 		return mySessionFactory.openSession();
 	}
+	
 	public boolean add(Contact c) {// inserting a new contact
 		Session session = getSession();
 

@@ -3,19 +3,19 @@ package ir.maktabsharif.api.contact.dto;
 import ir.maktabsharif.model.entity.Contact;
 
 public class ContactFullDTO {
-	private int ID;
+	private int id;
 	private String name;
 	private String surname;
 	private String homeNumber;
 	private String mobile;
 	private String email;
 
-	public int getID() {
-		return ID;
+	public int getId() {
+		return id;
 	}
 
-	public void setID(int iD) {
-		ID = iD;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -63,7 +63,7 @@ public class ContactFullDTO {
 	}
 
 	public ContactFullDTO(int iD, String name, String surname, String homeNumber, String mobile, String email) {
-		ID = iD;
+		id = iD;
 		this.name = name;
 		this.surname = surname;
 		this.homeNumber = homeNumber;
@@ -73,7 +73,7 @@ public class ContactFullDTO {
 
 	public ContactFullDTO convertToDto(Contact contact) {
 		if(contact!=null){
-			this.ID = contact.getID();
+			this.id = contact.getId();
 			this.name = contact.getName();
 			this.surname = contact.getSurname();
 			this.homeNumber = contact.getHomeNumber();
@@ -85,7 +85,7 @@ public class ContactFullDTO {
 
 	public Contact convertToObject() {
 		Contact contact = new Contact();
-		contact.setID(this.getID());
+		contact.setId(this.getId());
 		contact.setName(this.getName());
 		contact.setSurname(this.getSurname());
 		contact.setHomeNumber(this.getHomeNumber());
